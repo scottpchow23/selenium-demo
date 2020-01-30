@@ -10,13 +10,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = DemoApplication.class)
-public class ChromeTest {
+@SpringBootTest(classes = DemoApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
+public class ChromeTests {
+
+  @LocalServerPort
+  int port;
 
   private WebDriver driver;
 
@@ -47,8 +52,8 @@ public class ChromeTest {
   }
 
   @Test
-  public void indexCheck() {
-    driver.get("http://localhost:8080");
+  public void indexTest() {
+    driver.get("http://localhost:" + port);
     WebElement working = driver.findElement(By.id("working"));
 
     assert (working.isDisplayed());
