@@ -59,4 +59,13 @@ public class ChromeTests {
     assert (working.isDisplayed());
     assert (working.getText().equals("It works!"));
   }
+
+  @Test
+  public void badIndexTest() {
+    driver.get("http://localhost:" + port);
+    WebElement working = driver.findElement(By.id("not a real id"));
+    assert (working != null);
+    assert (working.isDisplayed());
+    assert (working.getText().equals("It works!"));
+  }
 }
